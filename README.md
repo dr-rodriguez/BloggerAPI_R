@@ -8,6 +8,7 @@ Also has some plots created from information in my blog.
 - After that's set up, it's just a manner of putting the correct blog ID and your oath2.0 information to access you blog.
 
 # File list
-- blogdata.Rda : example data from my blog
 - bloggerapi.R : script to access the Blogger API with OAuth2.0 and grab all the posts in the specified blog. This is saved to a file (blogdata.Rda)
 - blogmod2.R : script to read in the blogdata.Rda file and output some statistics
+- blogmod1.R : outdated script that does the same as blogmod2.R. It still works, but I prefer using the dplyr package
+- blogplot1.R : script to generate plots from the data
