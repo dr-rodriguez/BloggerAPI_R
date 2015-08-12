@@ -90,17 +90,28 @@ newdata %>%
     filter(books) %>%
     mutate(scifi=sapply(labels, function(x) {any(x %in% 'Science Fiction')}),
            fantasy=sapply(labels, function(x) {any(x %in% 'Fantasy')}),
-           #malazan=sapply(labels, function(x) {any(x %in% 'Malazan')}),
-           #discworld=sapply(labels, function(x) {any(x %in% 'Discworld')}),
-           #wot=sapply(labels, function(x) {any(x %in% 'Wheel of Time')}),
            bookclub=sapply(labels, function(x) {any(x %in% 'Book Club')})) %>%
     group_by(scifi, fantasy, bookclub) %>%
     summarize(count=n()) %>%
     ungroup %>%
     arrange(desc(count)) %>%
         print
-               
-    
+
+# Compact summary of the book types               
+newdata %>%
+    filter(books) %>%
+    mutate(scifi=sapply(labels, function(x) {any(x %in% 'Science Fiction')}),
+           fantasy=sapply(labels, function(x) {any(x %in% 'Fantasy')}),
+           bookclub=sapply(labels, function(x) {any(x %in% 'Book Club')})) %>%
+    group_by(scifi, fantasy, bookclub) %>%
+    summarize(count=n()) %>%
+    ungroup %>%
+    mutate(allscifi=sum(scifi*count),
+           allfantasy=sum(fantasy*count),
+           allbookclub=sum(bookclub*count)) %>%
+    select(allscifi:allbookclub) %>%
+    unique %>%
+        print
 
 # Open up the viewer to see part of the data (all rows, only select columns)
 newdata %>%
