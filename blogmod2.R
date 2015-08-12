@@ -50,7 +50,7 @@ newdata %>%
 print('Frequency of posts by month and year')
 newdata %>%
     group_by(monyear) %>%
-    summarize(counts=n(), words=mean(numwords), images=mean(numimgs)) %>%
+    summarize(counts=n(), mean_words=mean(numwords), mean_images=mean(numimgs)) %>%
     ungroup %>%
     arrange(desc(counts)) %>%
         print
