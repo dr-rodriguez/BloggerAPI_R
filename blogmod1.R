@@ -2,7 +2,7 @@
 # This is now out-dated, use blogmod2.R
 
 # Navigate to directory
-setwd('/Users/strakul/Desktop/Coursera/bloggerapi/')
+setwd('/Users/strakul/software/r/bloggerapi/')
 
 # Load the dat
 alldata <- readRDS(file='blogdata.Rda')

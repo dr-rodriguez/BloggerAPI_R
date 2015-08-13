@@ -4,7 +4,7 @@ library(ggplot2)
 library(scales)
 
 # Use the newdata from blogmod2.R
-#source('~/Desktop/Coursera/bloggerapi/blogmod2.R')
+#source('~/software/r/bloggerapi/blogmod2.R')
 
 # Histogram of when I published the data
 p <- ggplot(newdata, aes(published, ..count..)) + 
