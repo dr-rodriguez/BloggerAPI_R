@@ -9,18 +9,20 @@ alldata <- readRDS(file='blogdata.Rda')
 
 # Convert
 library(dplyr)
-newdata <- tbl_df(alldata) # might not be necessary?
+newdata <- tbl_df(alldata) 
 rm('alldata')
 
 # Adding Month-Year factor and approximate number of characters, words, and images
 library(stringi)
 newdata <-
     newdata %>%
-    mutate(monyear = factor(format(published,'%Y-%b')),
+    mutate(title = as.character(title), 
+           slabels = sapply(labels, toString), # collabse the labels list to a string
+           monyear = factor(format(published,'%Y-%b')),
            published = as.POSIXct(published), #POSIXlt does not work with dplyr
            numchar = nchar(content), #number of characters in post
-           numwords = stri_count(content,regex='\\S+'), #number of words
-           numimgs = stri_count_fixed(content,'img')) #number of images by tag 'img'
+           numwords = stri_count(as.character(content),regex='\\S+'), #number of words
+           numimgs = stri_count_fixed(as.character(content),'img')) #number of images by tag 'img'
 
 
 # Now for some results
@@ -76,12 +78,12 @@ newdata %>%
 
 
 # Filter to return the misc posts
-print('Top 5 posts that are not related to astronomy, book, or chile')
+print('Top 5 longest posts that are not related to astronomy, book, or chile')
 newdata %>%
     filter(!books,!astronomy,!chile) %>%
-    select(title, numchar:numimgs, labels) %>%
+    select(title, slabels, numwords:numimgs) %>%
     arrange(desc(numwords)) %>%
-        print(n=5)
+    print(n=5)
 
 
 # Filter and check the type of books I read and review
