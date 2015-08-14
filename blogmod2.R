@@ -12,7 +12,7 @@ library(dplyr)
 newdata <- tbl_df(alldata) 
 rm('alldata')
 
-# Adding Month-Year factor and approximate number of characters, words, and images
+# Adding Month-Year factor and approximate number of images
 library(stringi)
 newdata <-
     newdata %>%
@@ -20,10 +20,24 @@ newdata <-
            slabels = sapply(labels, toString), # collabse the labels list to a string
            monyear = factor(format(published,'%Y-%b')),
            published = as.POSIXct(published), #POSIXlt does not work with dplyr
-           numchar = nchar(content), #number of characters in post
-           numwords = stri_count(as.character(content),regex='\\S+'), #number of words
-           numimgs = stri_count_fixed(as.character(content),'img')) #number of images by tag 'img'
+           numimgs = stri_count_fixed(as.character(content),'img')) #by tag 'img'
 
+# Parse the content to remove the HTML coding. Then count characters and words
+# Can use metacharacter and regular expressions to eliminate things
+# gsub('<(.*?)>', '', x) will eliminate all html between < and > in chunks 
+# throughout the text (so wont eliminate the real text)
+my_replace <- function(x) {
+    x <- gsub('<(.*?)>', '', x) # removing HTML code encapsulated within <>
+    x <- gsub('\n',' ',x) # removing newline characters
+    x <- gsub('&nbsp;',' ',x) # removing some extra HTML code
+    x <- gsub('\"','',x) # removing explicit quotation marks
+    x
+}
+newdata <- 
+    newdata %>%
+    mutate(content=sapply(content,my_replace), #this can take some time
+           numchar = nchar(content), #number of characters in post
+           numwords = stri_count(as.character(content),regex='\\S+')) #number of words
 
 # Now for some results
 
