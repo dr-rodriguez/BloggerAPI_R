@@ -129,8 +129,10 @@ newdata %>%
     unique %>%
         print
 
+# Save all the text content of the blog posts to a separate file, for use elsewhere
+cat(newdata$content, file='text_dump.txt')
+
 # Open up the viewer to see part of the data (all rows, only select columns)
 newdata %>%
     select(published, title, numchar:numimgs, labels) %>%
     View
-
