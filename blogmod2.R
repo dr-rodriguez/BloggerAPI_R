@@ -2,7 +2,7 @@
 # This one uses dplyr
 
 # Navigate to directory
-setwd('/Users/strakul/software/r/bloggerapi/')
+setwd('~/software/r/bloggerapi/')
 
 # Load the dat
 alldata <- readRDS(file='blogdata.Rda')
