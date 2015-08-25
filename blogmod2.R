@@ -95,7 +95,7 @@ newdata %>%
 print('Top 5 longest posts that are not related to astronomy, book, or chile')
 newdata %>%
     filter(!books,!astronomy,!chile) %>%
-    select(title, slabels, numwords:numimgs) %>%
+    select(title, slabels, numwords, numimgs) %>%
     arrange(desc(numwords)) %>%
     print(n=5)
 
@@ -134,5 +134,5 @@ cat(newdata$content, file='text_dump.txt')
 
 # Open up the viewer to see part of the data (all rows, only select columns)
 newdata %>%
-    select(published, title, numchar:numimgs, labels) %>%
+    select(published, title, numwords, numimgs, labels) %>%
     View
