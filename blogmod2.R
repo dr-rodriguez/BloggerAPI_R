@@ -133,6 +133,6 @@ newdata %>%
 cat(newdata$content, file='text_dump.txt')
 
 # Open up the viewer to see part of the data (all rows, only select columns)
-newdata %>%
-    select(published, title, numwords, numimgs, labels) %>%
-    View
+#newdata %>%
+#    select(published, title, numwords, numimgs, labels) %>%
+#    View
