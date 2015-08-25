@@ -18,7 +18,7 @@ textdata <- tm_map(textdata, removeWords, stopwords("english"))
 textdata <- tm_map(textdata, removePunctuation)
 
 # Make the word cloud!
-png('wordcloud_1.png')
+png('wordcloud_1.png', width=600, height=600)
 wordcloud(textdata, scale=c(6,0.2), max.words=200, random.order=F, 
           rot.per=0.1, use.r.layout=F, colors=brewer.pal(8, "Dark2"))
 dev.off()
