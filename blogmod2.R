@@ -20,7 +20,7 @@ newdata <-
            slabels = sapply(labels, toString), # collabse the labels list to a string
            monyear = factor(format(published,'%Y-%b')),
            published = as.POSIXct(published), #POSIXlt does not work with dplyr
-           numimgs = stri_count_fixed(as.character(content),'img')) #by tag 'img'
+           numimgs = stri_count_fixed(as.character(content),'<img')) #by tag '<img'
 
 # Parse the content to remove the HTML coding. Then count characters and words
 # Can use metacharacter and regular expressions to eliminate things
