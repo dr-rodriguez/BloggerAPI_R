@@ -16,7 +16,7 @@ p <- ggplot(newdata, aes(published, ..count..)) +
     theme_bw() + 
     scale_x_datetime(breaks = "30 days",
                      labels = date_format("%Y-%b"),
-                     limits = c(as.POSIXct("2012-01-01"),
+                     limits = c(as.POSIXct("2012-03-01"),
                                 as.POSIXct(Sys.Date())) ) +
     theme(axis.text.x = element_text(angle=90))
     
