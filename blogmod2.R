@@ -17,7 +17,7 @@ library(stringi)
 newdata <-
     newdata %>%
     mutate(title = as.character(title), 
-           slabels = sapply(labels, toString), # collabse the labels list to a string
+           slabels = sapply(labels, toString), # collapse the labels list to a string
            monyear = factor(format(published,'%Y-%b')),
            published = as.POSIXct(published), #POSIXlt does not work with dplyr
            numimgs = stri_count_fixed(as.character(content),'<img')) #by tag '<img'
