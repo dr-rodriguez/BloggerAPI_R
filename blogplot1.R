@@ -63,3 +63,30 @@ p <- ggplot(newdata, aes(published, numwords, col=cutlvls)) +
 
 print(p)
 ggsave('wordvstime1.png')
+
+# ========================================================================
+# Histogram of what weekday I publish my posts
+newdata <-
+    newdata %>%
+    mutate(weekday=factor(weekdays(published))) # get the weekdays of my posts
+
+summary1 <-
+    newdata %>%
+    group_by(weekday) %>%
+    summarize(count=n())
+
+# Manually setting the proper order and resetting the factors
+lvls <- c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+summary1 <-
+    summary1 %>%
+    mutate(weekday=as.character(weekday)) %>%
+    mutate(weekday=factor(weekday, lvls))
+
+# Make a bar plot
+p <- ggplot(summary1, aes(weekday, count)) + 
+    geom_bar(fill='darkgreen', col='white', stat="identity") +
+    labs(x='Day of the Week', y='Number of Posts') + 
+    theme_bw()
+
+print(p)
+ggsave('postdays1.png')
