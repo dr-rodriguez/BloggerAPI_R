@@ -1,11 +1,12 @@
 # Make some plots of the data
 
 library(ggplot2)
-library(scales)
+library(scales) # for date_time scales
 
 # Use the newdata from blogmod2.R
 #source('~/software/r/bloggerapi/blogmod2.R')
 
+# ========================================================================
 # Histogram of when I published the data
 # Setting the binwidth to be 30 days in seconds
 bin <- 30*24*3600 
@@ -25,6 +26,30 @@ print(p)
 ggsave('postfreq2.png') # streches the image more nicely
 #dev.off()
 
+# ========================================================================
+# Histogram of what time I publish my posts
+newdata <-
+    newdata %>%
+    mutate(times=strftime(published, '%T %z')) %>% # first as a character
+    mutate(times=as.POSIXct(times, format='%T %z')) # now as a POSIXct date object
+
+# Make the plot
+bin <- 3600 # seconds in an hour
+
+p <- ggplot(newdata, aes(times, ..count..)) + 
+    geom_histogram(fill='darkred', col='white', binwidth=bin) +
+    labs(x='Time of Day (CLT)', y='Number of Posts') + 
+    theme_bw() + 
+    scale_x_datetime(breaks = date_breaks("1 hour"),
+                     labels = date_format("%H:%M"),
+                     limits = c(as.POSIXct("00:00:00 -0300", format='%T %z'),
+                                as.POSIXct("23:59:59 -0300", format='%T %z') )) +
+    theme(axis.text.x = element_text(angle=90))
+
+print(p)
+ggsave('posttimes1.png')
+
+# ========================================================================
 # Number of words through time
 #quantile(newdata$numimgs, probs=seq(0, 1, 0.25))
 quantile(newdata$numimgs, probs=c(0,0.5,0.75,0.9,0.95,0.99,1)) # 75%-ile is 4 images
