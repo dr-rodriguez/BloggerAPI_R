@@ -25,7 +25,7 @@ textdata <- tm_map(textdata, removePunctuation)
 cols <- brewer.pal(8, "Dark2") # Probably one of the better palettes for this
 #cols <- brewer.pal(8, "GnBu")  #Accent, Set1
 
-png('wordcloud_1.png', width=480, height=480)
+png('wordcloud_2.png', width=480, height=480)
 wordcloud(textdata, scale=c(6,0.2), max.words=200, random.order=F, 
           rot.per=0.1, use.r.layout=F, colors=cols)
 dev.off()

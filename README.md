@@ -1,6 +1,7 @@
 # BloggerAPI_R
 Some scripts for accessing the blogger API with R.
-Also has some plots created from information in my blog.
+Also has some plots created from information in [my blog](http://strakul.blogspot.com). 
+Results from this are described in [this post](http://strakul.blogspot.cl/2015/08/data-science-my-blog-with-r.html) on my blog (published Aug 30, 2015).
 
 # Initial Requirements
 - You'll need access to the Google Developer Console. You need to create a project and set up the Blogger API (under APIs and auth)
@@ -20,3 +21,4 @@ Also has some plots created from information in my blog.
 - postdays1.png : number of posts over weekday. recent as of Aug 30, 2015
 - posttimes1.png : number of posts over time of day. recent as of Aug 30, 2015
 - wordvstime1.png : word cloud of all content in posts. recent as of Aug 30, 2015
+- Subsequent figures are the same, but are made with posts beyond the 172 present as of Aug 30, 2015.

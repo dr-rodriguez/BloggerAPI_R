@@ -21,9 +21,9 @@ p <- ggplot(newdata, aes(published, ..count..)) +
                                 as.POSIXct(Sys.Date())) ) +
     theme(axis.text.x = element_text(angle=90))
     
-#png('postfreq2.png', width=600)
+#png('postfreq3.png', width=600)
 print(p)
-ggsave('postfreq2.png') # streches the image more nicely
+ggsave('postfreq3.png') # streches the image more nicely
 #dev.off()
 
 # ========================================================================
@@ -47,7 +47,7 @@ p <- ggplot(newdata, aes(times, ..count..)) +
     theme(axis.text.x = element_text(angle=90))
 
 print(p)
-ggsave('posttimes1.png')
+ggsave('posttimes2.png')
 
 # ========================================================================
 # Number of words through time
@@ -62,7 +62,7 @@ p <- ggplot(newdata, aes(published, numwords, col=cutlvls)) +
     scale_color_discrete(name='Number of Images', labels=c('0-1','2-3','4-6','7-17'))
 
 print(p)
-ggsave('wordvstime1.png')
+ggsave('wordvstime2.png')
 
 # ========================================================================
 # Histogram of what weekday I publish my posts
@@ -89,4 +89,4 @@ p <- ggplot(summary1, aes(weekday, count)) +
     theme_bw()
 
 print(p)
-ggsave('postdays1.png')
+ggsave('postdays2.png')
