@@ -1,11 +1,6 @@
----
-title: "Strakul’s Thoughts Data Analysis"
-author: "David Rodriguez"
-date: "September 21, 2015"
-output: 
-  html_document: 
-    keep_md: yes
----
+# Strakul’s Thoughts Data Analysis
+David Rodriguez  
+September 21, 2015  
 
 This document contains example code and analysis for my blog, [Strakul's Thoughts](http://www.strakul.blogspot.com). You can find the full code at my [Github page](https://github.com/dr-rodriguez/BloggerAPI_R), and a text-heavy description of the results in my [August 30, 2015 blog post](http://strakul.blogspot.cl/2015/08/data-science-my-blog-with-r.html). 
 This document is recent as of September 21, 2015 and so includes a little more updated informatino.
@@ -14,7 +9,8 @@ This document is recent as of September 21, 2015 and so includes a little more u
 
 First, I'll load the data set and all relevant packages.
 
-```{r load, message=FALSE}
+
+```r
 alldata <- readRDS(file='blogdata.Rda')
 
 # Convert to data frame tbl
@@ -29,7 +25,8 @@ library(scales) # for date_time scales
 
 Then, I perform some basic processing to add extra information and count the number of words, images, characters.
 
-```{r process}
+
+```r
 newdata <-
     newdata %>%
     mutate(title = as.character(title), 
@@ -64,34 +61,75 @@ newdata <-
 
 Here are the longests posts by number of words.
 
-```{r}
+
+```r
  newdata %>%
     arrange(desc(numwords)) %>%
     select(title, numwords) %>%
         print(n=5)
 ```
 
+```
+## Source: local data frame [174 x 2]
+## 
+##                                                          title numwords
+## 1                              A Journey to Northern Patagonia     3146
+## 2          A Journey to Southern Patagonia and Tierra de Fuego     2453
+## 3                      A Year as a Postdoc Astronomer in Chile     2038
+## 4                            Marketing for Scientists Workshop     1947
+## 5  Measuring the Distance to the Sun with the Transit of Venus     1851
+## ..                                                         ...      ...
+```
+
 And here are the shortests posts by number of words.
 
-```{r}
+
+```r
 newdata %>%
     arrange(numwords) %>%
     select(title, numwords, numimgs) %>%
         print(n=5)
 ```
 
+```
+## Source: local data frame [174 x 3]
+## 
+##                             title numwords numimgs
+## 1               Morning Mountains       42       1
+## 2                   Fund Me Maybe       48       0
+## 3       Chilean Sunrise: 3/7/2012       70       2
+## 4  Chilean Anti-Sunset: 2/27/2012       76       1
+## 5  Chilean Anti-Sunset: 1/18/2012       88       2
+## ..                            ...      ...     ...
+```
+
 Here are top 5 posts with largest number of images.
 
-```{r}
+
+```r
 newdata %>%
     arrange(desc(numimgs)) %>%
     select(title, numimgs, numwords) %>%
         print(n=5)
 ```
 
+```
+## Source: local data frame [174 x 3]
+## 
+##                                                          title numimgs
+## 1                              A Journey to Northern Patagonia      17
+## 2          A Journey to Southern Patagonia and Tierra de Fuego      14
+## 3  Measuring the Distance to the Sun with the Transit of Venus      13
+## 4                           Iguazu Falls Trip: Argentina (1/3)      13
+## 5                                Easter Island: Tourism! (3/3)      12
+## ..                                                         ...     ...
+## Variables not shown: numwords (int)
+```
+
 Now, I'll examine the frequency of posts by month and year. I also list the average number of words and images for each month. This is better seen in the graphs below.
 
-```{r}
+
+```r
 newdata %>%
     group_by(monyear) %>%
     summarize(counts=n(), mean_words=mean(numwords), mean_images=mean(numimgs)) %>%
@@ -100,9 +138,27 @@ newdata %>%
         print
 ```
 
+```
+## Source: local data frame [43 x 4]
+## 
+##     monyear counts mean_words mean_images
+## 1  2012-Jan     16   725.9375    2.250000
+## 2  2012-Apr     11   995.2727    4.181818
+## 3  2012-Feb     11   950.7273    1.272727
+## 4  2012-Mar     11   816.6364    4.272727
+## 5  2012-Jun     10   754.1000    3.600000
+## 6  2012-Aug      8   877.1250    2.625000
+## 7  2012-Dec      6   812.8333    1.333333
+## 8  2012-May      6  1196.1667    4.500000
+## 9  2012-Jul      5  1051.6000    2.000000
+## 10 2012-Sep      5   939.8000    1.000000
+## ..      ...    ...        ...         ...
+```
+
 Now for some results regarding the type of posts I do. Here are the counts for the various combinations possible of posts related to books, astronomy, and life in Chile.
 
-```{r}
+
+```r
 newdata %>%
     group_by(books, astronomy, chile) %>%
     summarize(count=n()) %>%
@@ -111,9 +167,23 @@ newdata %>%
         print
 ```
 
+```
+## Source: local data frame [7 x 4]
+## 
+##   books astronomy chile count
+## 1  TRUE     FALSE FALSE    84
+## 2 FALSE      TRUE FALSE    51
+## 3 FALSE     FALSE  TRUE    19
+## 4 FALSE     FALSE FALSE    10
+## 5 FALSE      TRUE  TRUE     7
+## 6  TRUE      TRUE FALSE     2
+## 7  TRUE     FALSE  TRUE     1
+```
+
 Here are the top 5 longests posts that are not related to astronomy, book, or Chile.
 
-```{r}
+
+```r
 newdata %>%
     filter(!books,!astronomy,!chile) %>%
     select(title, slabels, numwords, numimgs) %>%
@@ -121,9 +191,23 @@ newdata %>%
     print(n=5)
 ```
 
+```
+## Source: local data frame [10 x 4]
+## 
+##                                        title                      slabels
+## 1               Data Science: My Blog with R Data Science, Misc, Writting
+## 2            How to Make 3D Images with GIMP               Misc, Pictures
+## 3                 Avatar: The Last Airbender    Anime, Fantasy, TV series
+## 4  Short Story: The Plane and the Calculator             Travel, Writting
+## 5                   The Blog in Review: 2013               Misc, Writting
+## ..                                       ...                          ...
+## Variables not shown: numwords (int), numimgs (int)
+```
+
 Given that I write so many book-related posts, lets examine how many are classified under science fiction, fantasy, or are book club books.
 
-```{r}
+
+```r
 newdata %>%
     filter(books) %>%
     mutate(scifi=sapply(labels, function(x) {any(x %in% 'Science Fiction')}),
@@ -136,9 +220,23 @@ newdata %>%
         print
 ```
 
+```
+## Source: local data frame [7 x 4]
+## 
+##   scifi fantasy bookclub count
+## 1 FALSE    TRUE    FALSE    39
+## 2  TRUE   FALSE    FALSE    20
+## 3 FALSE   FALSE     TRUE    11
+## 4 FALSE   FALSE    FALSE     9
+## 5 FALSE    TRUE     TRUE     3
+## 6  TRUE    TRUE    FALSE     3
+## 7  TRUE   FALSE     TRUE     2
+```
+
 For a more compact look, we can use the following code. 
 
-```{r}
+
+```r
 newdata %>%
     filter(books) %>%
     mutate(scifi=sapply(labels, function(x) {any(x %in% 'Science Fiction')}),
@@ -155,12 +253,20 @@ newdata %>%
         print
 ```
 
+```
+## Source: local data frame [1 x 3]
+## 
+##   allscifi allfantasy allbookclub
+## 1       25         45          16
+```
+
 # Graphs
 
 Now, we are ready to generate some graphs from our data.
 
 First up is a histogram of when I published the data.
-```{r postfreq, fig.width=9}
+
+```r
 # Setting the binwidth to be 30 days in seconds
 bin <- 30*24*3600 
 
@@ -175,8 +281,11 @@ ggplot(newdata, aes(published, ..count..)) +
     theme(axis.text.x = element_text(angle=90))
 ```
 
+![](blogAnalysis_files/figure-html/postfreq-1.png) 
+
 Here's a histogram of at what time I publish my posts.
-```{r posttimes, fig.width=9}
+
+```r
 newdata <-
     newdata %>%
     mutate(times=strftime(published, '%T %z')) %>% # first as a character
@@ -195,9 +304,12 @@ ggplot(newdata, aes(times, ..count..)) +
     theme(axis.text.x = element_text(angle=90))
 ```
 
+![](blogAnalysis_files/figure-html/posttimes-1.png) 
+
 In the plot below, I examine the number of words in each post as a function of time
 
-```{r wordvstime, fig.width=9}
+
+```r
 lvls <- c(0,1,3,6,17)
 cutlvls <- cut(newdata$numimgs, lvls, include.lowest = T)
 ggplot(newdata, aes(published, numwords, col=cutlvls)) +
@@ -207,9 +319,12 @@ ggplot(newdata, aes(published, numwords, col=cutlvls)) +
     scale_color_discrete(name='Number of Images', labels=c('0-1','2-3','4-6','7-17'))
 ```
 
+![](blogAnalysis_files/figure-html/wordvstime-1.png) 
+
 The plot below shows what days I tend to publish my posts.
 
-```{r postdays, fig.width=9}
+
+```r
 newdata <-
     newdata %>%
     mutate(weekday=factor(weekdays(published))) # get the weekdays of my posts
@@ -232,13 +347,16 @@ ggplot(summary1, aes(weekday, count)) +
     theme_bw()
 ```
 
+![](blogAnalysis_files/figure-html/postdays-1.png) 
+
 # Word Cloud
 
 The last thing I want to do is create a word cloud of the top 200 words I've used in my posts.
 
 First, I need to load up some more packages and process the data
 
-```{r wordcloud_load, message=FALSE}
+
+```r
 library(tm)
 library(wordcloud)
 library(RColorBrewer)
@@ -255,10 +373,13 @@ textdata <- tm_map(textdata, removePunctuation)
 
 Now, we are ready to generate the word cloud. The cloud is square when embedded here, but when saved to a file it appears more circular.
 
-```{r wordcloud, fig.width=9, message=FALSE, warning=FALSE}
+
+```r
 # Selecting the color palette from the RColorBrewer package
 cols <- brewer.pal(8, "Dark2") # One of the better palettes for this
 
 wordcloud(textdata, scale=c(6,0.2), max.words=200, random.order=F, 
           rot.per=0.1, use.r.layout=F, colors=cols)
 ```
+
+![](blogAnalysis_files/figure-html/wordcloud-1.png) 
