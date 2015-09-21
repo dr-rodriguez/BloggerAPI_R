@@ -9,6 +9,8 @@ Results from this are described in [this post](http://strakul.blogspot.cl/2015/0
 - After that's set up, it's just a manner of putting the correct blog ID and your OAuth2.0 information to access your blog.
 
 # File list
+- README.md : this file
+- blogAnalysis.md : summary of the code and its output (also exists as R Markdown, .Rmd, and HTML, .html)
 - bloggerapi.R : script to access the Blogger API with OAuth2.0 and grab all the posts in the specified blog. This is saved to a file (blogdata.Rda). A version of the script without my key/ID is supplied (anon_bloggerapi.R)
 - blogmod2.R : script to read in the blogdata.Rda file and output some statistics
 - blogplot1.R : script to generate plots from the data
