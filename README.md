@@ -11,14 +11,12 @@ Results from this are described in [this post](http://strakul.blogspot.cl/2015/0
 # File list
 - bloggerapi.R : script to access the Blogger API with OAuth2.0 and grab all the posts in the specified blog. This is saved to a file (blogdata.Rda). A version of the script without my key/ID is supplied (anon_bloggerapi.R)
 - blogmod2.R : script to read in the blogdata.Rda file and output some statistics
-- blogmod1.R : outdated script that does the similar work as blogmod2.R. It still works, but I prefer using the dplyr package
 - blogplot1.R : script to generate plots from the data
 - wordcloud.R : script to generate the word cloud from the data
 
 # Figures
-- postfreq1.png : frequency of posts over time, original version
-- postfreq2.png : frequency of posts over time. recent as of Aug 30, 2015
-- postdays1.png : number of posts over weekday. recent as of Aug 30, 2015
-- posttimes1.png : number of posts over time of day. recent as of Aug 30, 2015
-- wordvstime1.png : word cloud of all content in posts. recent as of Aug 30, 2015
+- postfreq#.png : frequency of posts over time
+- postdays#.png : number of posts over weekday
+- posttimes#.png : number of posts over time of day
+- wordvstime#.png : word cloud of all content in posts
 - Subsequent figures are the same, but are made with posts beyond the 172 present as of Aug 30, 2015.
