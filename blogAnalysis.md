@@ -3,7 +3,7 @@ David Rodriguez
 September 21, 2015  
 
 This document contains example code and analysis for my blog, [Strakul's Thoughts](http://www.strakul.blogspot.com). You can find the full code at my [Github page](https://github.com/dr-rodriguez/BloggerAPI_R), and a text-heavy description of the results in my [August 30, 2015 blog post](http://strakul.blogspot.cl/2015/08/data-science-my-blog-with-r.html). 
-This document is recent as of September 21, 2015 and so includes a little more updated informatino.
+This document is recent as of September 21, 2015 and so includes a little more updated information.
 
 # Processing
 
