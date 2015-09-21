@@ -26,6 +26,15 @@ print(p)
 ggsave('postfreq3.png') # streches the image more nicely
 #dev.off()
 
+# Alternate version
+# Works, but need to re-order factors first
+# Also, does not plot empty months
+ggplot(newdata, aes(monyear, ..count..)) +
+    geom_bar(fill='darkblue', col='white') +
+    labs(x=NULL) +
+    theme_bw() + 
+    theme(axis.text.x = element_text(angle=90))
+
 # ========================================================================
 # Histogram of what time I publish my posts
 newdata <-
